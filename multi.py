@@ -1,3 +1,7 @@
+__author__ = "Jake Piccolo"
+__license__ = "GPL"
+
+
 _methods = {}
 
 
