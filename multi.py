@@ -71,3 +71,16 @@ def juxt(*fs):
     def juxted(*args):
         return tuple([f(*args) for f in fs])
     return juxted
+
+def types(*xs):
+    """
+    Returns a tuple of types for each of a variable number of args.
+
+    types(1, [1]) => (<type 'int'>, <type 'list'>)
+
+    """
+    return tuple(map(type, xs))
+
+def arity(*xs):
+    """Returns the count the arguments."""
+    return len(xs)

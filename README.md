@@ -87,3 +87,52 @@ Using it:
 'Dict of 2 key-value pairs.'
 
 ```
+
+
+Dispatching based on number of args
+-----------------------------------
+Since multipy is so general, dispatching on number of args is trivial.
+
+```python
+from multi import defmulti, method, arity
+
+defmulti('farity', arity)
+
+@method(1)
+def farity(x):
+    return x
+
+@method(2)
+def farity(x, y):
+    return x, y
+
+```
+
+
+
+Dispatching on type and number of args
+--------------------------------------
+multipy has a ``types`` function for dispatching on types and arity of args, similar to Guido van Rossum's original implementation of multimethods (http://www.artima.com/weblogs/viewpost.jsp?thread=101605).
+
+```python
+from multi import defmulti, method, types, Default
+
+defmulti('add', types)
+
+@method((int,))
+def add(x):
+    return add(x, 0)
+
+@method((int, int))
+def add(x, y):
+    return x + y
+
+@method((list, list))
+def add(xs, ys):
+    return map(add, xs, ys)
+
+@method(Default)
+def add(*args):
+    return reduce(add, args)
+
+```
